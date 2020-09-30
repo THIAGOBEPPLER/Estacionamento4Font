@@ -1,0 +1,153 @@
+import { Veiculo } from './../Models/Veiculo.model';
+import { VerificaPlaca } from '../Models/VerificaPlaca.model';
+import { VeiculoAtivo } from '../Models/VeiculoAtivo.model';
+import { CarroService } from './../carro.service';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Injectable,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { timer } from 'rxjs';
+
+@Component({
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.css'],
+})
+export class CadastroComponent implements OnInit, OnChanges {
+  form: FormGroup;
+  // public veiculos: Veiculo[] = [];
+  vPlaca: VerificaPlaca;
+  novoVeiculo: Veiculo = {};
+
+  jaCadastrado = false;
+
+  // vPlaca;
+  // modelo: string;
+  // marca: string;
+  // cor: string;
+
+  // emitirCarros = new EventEmitter();
+
+  constructor(private fb: FormBuilder, private CarroService: CarroService) {}
+
+  ngOnInit(): void {
+    this.form = this.fb.group({
+      placa: [null, [Validators.required]],
+      marca: [null, [Validators.required]],
+      modelo: [null, [Validators.required]],
+      cor: [null, [Validators.required]],
+    });
+
+    console.log('init');
+
+
+  }
+
+  ngOnChanges(): void {
+
+    console.log('changes');
+
+
+  }
+
+  onEntrada(placa: string){
+    console.log( 'Carro ja cadastrado: ' + this.jaCadastrado);
+
+    if (this.jaCadastrado){
+      this.CarroService.postEntrada(placa).subscribe(
+        (data: string) => {
+          console.log(data);
+      });
+    }
+    else {
+
+      console.log(this.novoVeiculo);
+
+
+      this.novoVeiculo.placa = this.form.value.placa;
+      this.novoVeiculo.marca = this.form.value.marca;
+      this.novoVeiculo.modelo = this.form.value.modelo;
+      this.novoVeiculo.cor = this.form.value.cor;
+
+      console.log(this.novoVeiculo);
+
+      this.CarroService.postCadastra(this.novoVeiculo).subscribe(
+        (data: string) => {
+          console.log(data);
+      });
+
+      timer(5000);
+
+      this.CarroService.postEntrada(this.novoVeiculo.placa).subscribe(
+        (data: string) => {
+          console.log(data);
+      });
+
+    }
+    alert('Carro adicionado.');
+    window.location.reload();
+
+  }
+
+  onVerificaPlaca(placa: string) {
+    this.CarroService.getVerificaPlaca(placa).subscribe(
+      (data: VerificaPlaca) => {
+        console.log(data);
+        // this.vPlaca = data;
+        // console.log(this.vPlaca);
+
+        if (data === null) {
+          this.jaCadastrado = false;
+          console.log('Placa nao cadastrada.');
+          this.form.patchValue({
+            marca: '',
+            modelo: '',
+            cor: '',
+            // teste: ''
+          });
+        } else {
+          this.jaCadastrado = true;
+          this.vPlaca = data;
+          // this.form.setValue({marca: this.vPlaca.marca,
+          //                     mpdelo: this.vPlaca.modelo,
+          //                     cor: this.vPlaca.cor});
+
+          console.log(this.vPlaca.marca);
+          console.log(this.vPlaca.modelo);
+          console.log(this.vPlaca.cor);
+
+          this.form.patchValue({
+            marca: this.vPlaca.marca,
+            modelo: this.vPlaca.modelo,
+            cor: this.vPlaca.cor
+          });
+
+          // this.form.setValue({first: 'Carson', last: 'Drew'});
+        }
+      }
+    );
+  }
+
+  // onSubmit(){
+
+  //   console.log(this.form.value);
+  //   if (this.form.valid){
+  //     console.log('Submit');
+
+  //     // this.carros.push(this.form.value);
+  //     // this.emitirCarros.emit(this.carros);
+  //    // CarroServiceaddCarro(this.form.value);
+  //   }
+
+  //   this.carroService.addCarro(this.form.value);
+
+  //   this.form.reset();
+
+  // }
+}

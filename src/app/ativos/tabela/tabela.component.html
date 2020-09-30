@@ -1,0 +1,24 @@
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Placa</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Cor</th>
+      <th scope="col">Hora de Entrada</th>
+      <th scope="col">Baixa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let v of veiculo">
+      <td>{{v.placa}} </td>
+      <td>{{v.marca }} </td>
+      <td>{{v.modelo }} </td>
+      <td>{{v.cor }} </td>
+      <td>{{v.entrada | date:'HH:mm dd/MM/yy' }} </td>
+      <td> <button class="btn btn-danger" (click) = 'onBaixa(v.placa)' > X </button> </td>
+
+    </tr>
+  </tbody>
+</table>
+
