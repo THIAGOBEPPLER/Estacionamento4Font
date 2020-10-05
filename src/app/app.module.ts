@@ -11,6 +11,10 @@ import { CadastroComponent } from './ativos/cadastro/cadastro.component';
 import { TabelaComponent } from './ativos/tabela/tabela.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SaidaComponent } from './ativos/tabela/saida/saida.component';
+
+import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
+
 
 
 @NgModule({
@@ -20,16 +24,21 @@ import { ReactiveFormsModule } from '@angular/forms';
     AtivosComponent,
     HistoricoComponent,
     CadastroComponent,
-    TabelaComponent
+    TabelaComponent,
+    SaidaComponent
+  ],
+  entryComponents: [
+    SaidaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule
   ],
-  providers: [],
+  providers: [BsModalRef],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

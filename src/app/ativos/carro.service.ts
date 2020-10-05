@@ -1,3 +1,6 @@
+import { SaidaComponent } from './tabela/saida/saida.component';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { VeiculoAtivo } from './Models/VeiculoAtivo.model';
 import { Baixa } from './Models/VerificaPlaca.model';
 import { Veiculo } from './Models/Veiculo.model';
 import { Injectable, EventEmitter } from '@angular/core';
@@ -17,16 +20,15 @@ export class CarroService {
 
   private carros: Veiculo[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private modalServise: BsModalService) {}
 
   putBaixa(placa: string): Observable<Baixa>{
     const url = this.urlPatio.concat(placa);
     return this.http.put<Baixa>(url, placa);
   }
 
-  getCarrosAtivos(): Observable<Veiculo> {
-    return this.http.get<Veiculo>(this.urlVeiculo);
-
+  getCarrosAtivos(): Observable<VeiculoAtivo[]> {
+    return this.http.get<VeiculoAtivo[]>(this.urlVeiculo);
   }
 
   getVerificaPlaca(placa: string): Observable<any> {
@@ -43,6 +45,12 @@ export class CarroService {
   postCadastra( veiculo: Veiculo): Observable<string> {
     const url = this.urlVeiculo.concat(veiculo.placa);
     return this.http.post<string>(url, veiculo);
+  }
+
+  ////
+  showBaixa(veiculo: Baixa){
+    const bsModalRef: BsModalRef = this.modalServise.show(SaidaComponent);
+    bsModalRef.content = veiculo;
   }
 
 }

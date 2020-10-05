@@ -14,7 +14,7 @@ import { ErrorObserver } from 'rxjs';
 export class TabelaComponent implements OnInit, OnChanges {
 
   baixa: Baixa;
-  veiculo: VeiculoAtivo;
+  veiculo: VeiculoAtivo[];
 
   constructor(private CarroService: CarroService) { }
   // constructor(private datePipe: DatePipe) {}
@@ -24,10 +24,9 @@ export class TabelaComponent implements OnInit, OnChanges {
      // this.CarroService.getCarrosAtivos()
      // .subscribe(c => this.carro = c);
 
-    this.CarroService.getCarrosAtivos().subscribe((data: VeiculoAtivo) => {
+    this.CarroService.getCarrosAtivos().subscribe((data: VeiculoAtivo[]) => {
       console.log(data);
       this.veiculo = data;
-      console.log(typeof this.veiculo.entrada);
     }
     );
 
@@ -86,6 +85,8 @@ export class TabelaComponent implements OnInit, OnChanges {
               'Saida: '   + this.baixa.saida + '\n' +
               'Tempo: '   + this.baixa.tempo + ' minutos\n' +
               'Valor: '   + this.baixa.valor + ' reais');
+
+        // this.CarroService.showBaixa(this.baixa);
 
         window.location.reload();
 
