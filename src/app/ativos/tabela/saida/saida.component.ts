@@ -1,5 +1,5 @@
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ModuleWithProviders, OnInit } from '@angular/core';
 
 
 @Component({
@@ -10,6 +10,11 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SaidaComponent implements OnInit {
 
   @Input() placa: string;
+  static forRoot(): ModuleWithProviders<SaidaComponent> {
+    return {
+      ngModule: SaidaComponent
+    };
+  }
 
   constructor(public bsModalRef: BsModalRef ) { }
 

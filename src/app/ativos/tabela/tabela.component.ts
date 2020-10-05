@@ -86,7 +86,7 @@ export class TabelaComponent implements OnInit, OnChanges {
               'Tempo: '   + this.baixa.tempo + ' minutos\n' +
               'Valor: '   + this.baixa.valor + ' reais');
 
-        // this.CarroService.showBaixa(this.baixa);
+        this.CarroService.showBaixa(this.baixa);
 
         window.location.reload();
 

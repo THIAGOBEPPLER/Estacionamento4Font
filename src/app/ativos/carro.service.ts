@@ -48,9 +48,14 @@ export class CarroService {
   }
 
   ////
+
+
+
+
+
   showBaixa(veiculo: Baixa){
     const bsModalRef: BsModalRef = this.modalServise.show(SaidaComponent);
-    bsModalRef.content = veiculo;
+    // bsModalRef.content = veiculo;
   }
 
 }
