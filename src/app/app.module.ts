@@ -37,7 +37,7 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ModalModule,
+    ModalModule.forRoot(),
     NgbModule
   ],
   providers: [BsModalRef],

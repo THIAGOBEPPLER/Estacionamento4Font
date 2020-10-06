@@ -1,10 +1,11 @@
+import { ModalService } from './../modal.service';
 import { Baixa } from '../Models/VerificaPlaca.model';
 import { VeiculoAtivo } from '../Models/VeiculoAtivo.model';
 import { CarroService } from './../carro.service';
 import { Component, OnInit, Injectable, Input, OnChanges, SimpleChanges, ErrorHandler } from '@angular/core';
 import { DatePipe, PlatformLocation } from '@angular/common';
 import { error } from '@angular/compiler/src/util';
-import { ErrorObserver } from 'rxjs';
+import { ErrorObserver, timer } from 'rxjs';
 
 @Component({
   selector: 'app-tabela',
@@ -16,7 +17,7 @@ export class TabelaComponent implements OnInit, OnChanges {
   baixa: Baixa;
   veiculo: VeiculoAtivo[];
 
-  constructor(private CarroService: CarroService) { }
+  constructor(private CarroService: CarroService, private ModalService: ModalService) { }
   // constructor(private datePipe: DatePipe) {}
 
   ngOnInit(): void {
@@ -76,19 +77,20 @@ export class TabelaComponent implements OnInit, OnChanges {
 
         // let a  = formatDate(new Date(), 'yyyy-MM-dd hh:mm:ssZZZZZ', 'en_US')
 
-        alert('Baixa no carro: \n' +
-              'Placa: '   + this.baixa.placa + '\n' +
-              'Marca: '   + this.baixa.marca + '\n' +
-              'Modelo: '  + this.baixa.modelo + '\n' +
-              'Cor: '     + this.baixa.cor + '\n' +
-              'Entrada: ' + this.baixa.entrada + '\n' +
-              'Saida: '   + this.baixa.saida + '\n' +
-              'Tempo: '   + this.baixa.tempo + ' minutos\n' +
-              'Valor: '   + this.baixa.valor + ' reais');
+        // alert('Baixa no carro: \n' +
+        //       'Placa: '   + this.baixa.placa + '\n' +
+        //       'Marca: '   + this.baixa.marca + '\n' +
+        //       'Modelo: '  + this.baixa.modelo + '\n' +
+        //       'Cor: '     + this.baixa.cor + '\n' +
+        //       'Entrada: ' + this.baixa.entrada + '\n' +
+        //       'Saida: '   + this.baixa.saida + '\n' +
+        //       'Tempo: '   + this.baixa.tempo + ' minutos\n' +
+        //       'Valor: '   + this.baixa.valor + ' reais');
 
-        this.CarroService.showBaixa(this.baixa);
+        this.ModalService.showBaixa(data);
 
-        window.location.reload();
+        // timer(1000);
+        // window.location.reload();
 
     },
 

@@ -20,7 +20,10 @@ export class CarroService {
 
   private carros: Veiculo[] = [];
 
-  constructor(private http: HttpClient, private modalServise: BsModalService) {}
+  constructor(private http: HttpClient) {}
+  // constructor(private modalServise: BsModalService) {}
+
+  // private modalServise: BsModalService;
 
   putBaixa(placa: string): Observable<Baixa>{
     const url = this.urlPatio.concat(placa);
@@ -49,13 +52,9 @@ export class CarroService {
 
   ////
 
-
-
-
-
-  showBaixa(veiculo: Baixa){
-    const bsModalRef: BsModalRef = this.modalServise.show(SaidaComponent);
-    // bsModalRef.content = veiculo;
-  }
+  // showBaixa(veiculo: Baixa){
+  //   const bsModalRef: BsModalRef = this.modalServise.show(SaidaComponent);
+  //   bsModalRef.content = veiculo;
+  // }
 
 }
