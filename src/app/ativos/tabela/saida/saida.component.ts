@@ -1,4 +1,4 @@
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
 import { Component, Input, ModuleWithProviders, OnInit } from '@angular/core';
 
 
@@ -9,12 +9,14 @@ import { Component, Input, ModuleWithProviders, OnInit } from '@angular/core';
 })
 export class SaidaComponent implements OnInit {
 
-  @Input() placa: string;
-  static forRoot(): ModuleWithProviders<SaidaComponent> {
-    return {
-      ngModule: SaidaComponent
-    };
-  }
+  // @Input() placa: string;
+  // static forRoot(): ModuleWithProviders<SaidaComponent> {
+  //   return {
+  //     ngModule: SaidaComponent
+  //   };
+  // }
+
+
 
   constructor(public bsModalRef: BsModalRef ) { }
 
@@ -25,4 +27,7 @@ export class SaidaComponent implements OnInit {
     this.bsModalRef.hide();
   }
 
+
+
 }
+

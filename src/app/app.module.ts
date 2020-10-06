@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -36,7 +37,7 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
     NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ModalModule.forRoot(),
+    ModalModule,
     NgbModule
   ],
   providers: [BsModalRef],
