@@ -14,7 +14,7 @@ import { ErrorObserver, timer } from 'rxjs';
 })
 export class TabelaComponent implements OnInit, OnChanges {
 
-  baixa: Baixa;
+  // baixa: Baixa;
   veiculo: VeiculoAtivo[];
 
   constructor(private CarroService: CarroService, private ModalService: ModalService) { }
@@ -55,7 +55,7 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   }
 
-  ngOnChanges(): void {
+  ngOnChanges(change: SimpleChanges): void {
 
     console.log('Thiago');
 
@@ -63,12 +63,12 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   onBaixa(placa: string){
 
-
+    let baixa: Baixa;
 
     this.CarroService.putBaixa(placa).subscribe(
       (data: Baixa) => {
         console.log(data);
-        this.baixa = data;
+        baixa = data;
 
         // const entrada = this.baixa.entrada | date:'HH:mm dd/MM/yy'
 

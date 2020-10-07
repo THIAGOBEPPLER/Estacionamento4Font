@@ -23,8 +23,8 @@ import { waitForAsync } from '@angular/core/testing';
 export class CadastroComponent implements OnInit, OnChanges {
   form: FormGroup;
   // public veiculos: Veiculo[] = [];
-  vPlaca: VerificaPlaca;
-  novoVeiculo: Veiculo = {};
+  // vPlaca: VerificaPlaca;
+  // novoVeiculo: Veiculo = {};
 
   jaCadastrado = false;
 
@@ -98,15 +98,16 @@ export class CadastroComponent implements OnInit, OnChanges {
   }
 
   onCadastra(): void {
+    const novoVeiculo: Veiculo = {};
 
-    this.novoVeiculo.placa = this.form.value.placa;
-    this.novoVeiculo.marca = this.form.value.marca;
-    this.novoVeiculo.modelo = this.form.value.modelo;
-    this.novoVeiculo.cor = this.form.value.cor;
+    novoVeiculo.placa = this.form.value.placa;
+    novoVeiculo.marca = this.form.value.marca;
+    novoVeiculo.modelo = this.form.value.modelo;
+    novoVeiculo.cor = this.form.value.cor;
 
-    console.log(this.novoVeiculo);
+    console.log(novoVeiculo);
 
-    this.CarroService.postCadastra(this.novoVeiculo).subscribe(
+    this.CarroService.postCadastra(novoVeiculo).subscribe(
       (data: string) => {
         console.log(data);
 
@@ -128,6 +129,7 @@ export class CadastroComponent implements OnInit, OnChanges {
   }
 
   onVerificaPlaca(): void {
+    let vPlaca: VerificaPlaca;
 
     const placa = this.form.value.placa;
     this.CarroService.getVerificaPlaca(placa).subscribe(
@@ -147,19 +149,19 @@ export class CadastroComponent implements OnInit, OnChanges {
           });
         } else {
           this.jaCadastrado = true;
-          this.vPlaca = data;
+          vPlaca = data;
           // this.form.setValue({marca: this.vPlaca.marca,
           //                     mpdelo: this.vPlaca.modelo,
           //                     cor: this.vPlaca.cor});
 
-          console.log(this.vPlaca.marca);
-          console.log(this.vPlaca.modelo);
-          console.log(this.vPlaca.cor);
+          console.log(vPlaca.marca);
+          console.log(vPlaca.modelo);
+          console.log(vPlaca.cor);
 
           this.form.patchValue({
-            marca: this.vPlaca.marca,
-            modelo: this.vPlaca.modelo,
-            cor: this.vPlaca.cor
+            marca: vPlaca.marca,
+            modelo: vPlaca.modelo,
+            cor: vPlaca.cor
           });
 
           // this.form.setValue({first: 'Carson', last: 'Drew'});
