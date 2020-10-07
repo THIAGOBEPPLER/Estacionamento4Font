@@ -114,13 +114,13 @@ export class CadastroComponent implements OnInit, OnChanges {
 
     this.jaCadastrado = true;
 
-    timer(10000);
+    // timer(10000);
 
 
-    this.CarroService.postEntrada(this.novoVeiculo.placa).subscribe(
-      (data: string) => {
-        console.log(data);
-    });
+    // this.CarroService.postEntrada(this.novoVeiculo.placa).subscribe(
+    //   (data: string) => {
+    //     console.log(data);
+    // });
 
 
     // alert('Carro adicionado.');
