@@ -18,8 +18,8 @@
           type="button"
           class="btn btn-primary"
           type="submit"
-          (click)="onVerificaPlaca(placa.value)"
-          
+          (click)="onVerificaPlaca()"
+
         >
           Verifica Placa
         </button>
@@ -55,14 +55,26 @@
         />
       </div>
       <button
+        *ngIf="jaCadastrado"
         [disabled]="!form.valid"
         class="form-control"
         type="submit"
         class="btn btn-primary"
-        (click) = "onEntrada(placa.value)"
+        (click) = "onEntrada()"
       >
         Entrada
       </button>
+
+      <button
+      *ngIf="!jaCadastrado"
+      [disabled]="!form.valid"
+      class="form-control"
+      type="submit"
+      class="btn btn-primary"
+      (click) = "onCadastra()"
+    >
+      Cadastro
+    </button>
     </form>
   </div>
 </div>

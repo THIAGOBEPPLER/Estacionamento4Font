@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { timer } from 'rxjs';
+import { waitForAsync } from '@angular/core/testing';
 
 @Component({
   selector: 'app-cadastro',
@@ -56,46 +57,79 @@ export class CadastroComponent implements OnInit, OnChanges {
 
   }
 
-  onEntrada(placa: string){
+  onEntrada(): void {
     console.log( 'Carro ja cadastrado: ' + this.jaCadastrado);
 
-    if (this.jaCadastrado){
-      this.CarroService.postEntrada(placa).subscribe(
-        (data: string) => {
-          console.log(data);
-      });
-    }
-    else {
+    const placa = this.form.value.placa;
 
-      console.log(this.novoVeiculo);
+    this.CarroService.postEntrada(placa).subscribe(
+      (data: string) => {
+        console.log(data);
+    });
+
+    // else {
+
+    //   console.log(this.novoVeiculo);
 
 
-      this.novoVeiculo.placa = this.form.value.placa;
-      this.novoVeiculo.marca = this.form.value.marca;
-      this.novoVeiculo.modelo = this.form.value.modelo;
-      this.novoVeiculo.cor = this.form.value.cor;
+    //   this.novoVeiculo.placa = this.form.value.placa;
+    //   this.novoVeiculo.marca = this.form.value.marca;
+    //   this.novoVeiculo.modelo = this.form.value.modelo;
+    //   this.novoVeiculo.cor = this.form.value.cor;
 
-      console.log(this.novoVeiculo);
+    //   console.log(this.novoVeiculo);
 
-      this.CarroService.postCadastra(this.novoVeiculo).subscribe(
-        (data: string) => {
-          console.log(data);
-      });
+    //   this.CarroService.postCadastra(this.novoVeiculo).subscribe(
+    //     (data: string) => {
+    //       console.log(data);
+    //   });
 
-      timer(5000);
+    //   timer(5000);
 
-      this.CarroService.postEntrada(this.novoVeiculo.placa).subscribe(
-        (data: string) => {
-          console.log(data);
-      });
+    //   this.CarroService.postEntrada(this.novoVeiculo.placa).subscribe(
+    //     (data: string) => {
+    //       console.log(data);
+    //   });
 
-    }
+    // }
     alert('Carro adicionado.');
     window.location.reload();
 
   }
 
-  onVerificaPlaca(placa: string) {
+  onCadastra(): void {
+
+    this.novoVeiculo.placa = this.form.value.placa;
+    this.novoVeiculo.marca = this.form.value.marca;
+    this.novoVeiculo.modelo = this.form.value.modelo;
+    this.novoVeiculo.cor = this.form.value.cor;
+
+    console.log(this.novoVeiculo);
+
+    this.CarroService.postCadastra(this.novoVeiculo).subscribe(
+      (data: string) => {
+        console.log(data);
+
+    });
+
+    this.jaCadastrado = true;
+
+    timer(10000);
+
+
+    this.CarroService.postEntrada(this.novoVeiculo.placa).subscribe(
+      (data: string) => {
+        console.log(data);
+    });
+
+
+    // alert('Carro adicionado.');
+    // window.location.reload();
+  }
+
+  onVerificaPlaca(): void {
+
+    const placa = this.form.value.placa;
     this.CarroService.getVerificaPlaca(placa).subscribe(
       (data: VerificaPlaca) => {
         console.log(data);
