@@ -61,7 +61,15 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   }
 
-  onBaixa(placa: string){
+  onAtualiza(): void{
+    this.CarroService.getCarrosAtivos().subscribe((data: VeiculoAtivo[]) => {
+      console.log(data);
+      this.veiculo = data;
+    }
+    );
+  }
+
+  onBaixa(placa: string): void{
 
     let baixa: Baixa;
 
@@ -69,6 +77,7 @@ export class TabelaComponent implements OnInit, OnChanges {
       (data: Baixa) => {
         console.log(data);
         baixa = data;
+
 
         // const entrada = this.baixa.entrada | date:'HH:mm dd/MM/yy'
 
@@ -94,8 +103,8 @@ export class TabelaComponent implements OnInit, OnChanges {
 
     },
 
-    (error: Error) => {
-        console.error(error);
+    (err: Error) => {
+        console.error(err);
         alert('Carro nao esta no patio.');
     }
     );

@@ -34,7 +34,7 @@ export class SaidaComponent implements OnInit {
 
   onImprimir(): void{
     this.bsModalRef.hide();
-    window.location.reload();
+    // window.location.reload();
   }
 
 }

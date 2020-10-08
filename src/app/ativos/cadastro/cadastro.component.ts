@@ -67,6 +67,14 @@ export class CadastroComponent implements OnInit, OnChanges {
         console.log(data);
     });
 
+    this.form.patchValue({
+      placa: '',
+      marca: '',
+      modelo: '',
+      cor: '',
+      // teste: ''
+    });
+
     // else {
 
     //   console.log(this.novoVeiculo);
@@ -93,7 +101,7 @@ export class CadastroComponent implements OnInit, OnChanges {
 
     // }
     alert('Carro adicionado.');
-    window.location.reload();
+    // window.location.reload();
 
   }
 
