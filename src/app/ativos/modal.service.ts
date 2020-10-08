@@ -12,7 +12,7 @@ export class ModalService {
 
   constructor(private modalServise: BsModalService) { }
 
-  showBaixa(veiculo: Baixa){
+  showBaixa(veiculo: Baixa): void{
     const bsModalRef: BsModalRef = this.modalServise.show(SaidaComponent);
     bsModalRef.content.veiculo = veiculo;
   }

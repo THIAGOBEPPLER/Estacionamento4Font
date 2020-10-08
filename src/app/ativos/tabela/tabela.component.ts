@@ -1,3 +1,4 @@
+import { ComunicacaoService } from './../comunicacao.service';
 import { ModalService } from './../modal.service';
 import { Baixa } from '../Models/VerificaPlaca.model';
 import { VeiculoAtivo } from '../Models/VeiculoAtivo.model';
@@ -5,20 +6,26 @@ import { CarroService } from './../carro.service';
 import { Component, OnInit, Injectable, Input, OnChanges, SimpleChanges, ErrorHandler } from '@angular/core';
 import { DatePipe, PlatformLocation } from '@angular/common';
 import { error } from '@angular/compiler/src/util';
-import { ErrorObserver, timer } from 'rxjs';
+import { ErrorObserver, Subscription, timer } from 'rxjs';
 
 @Component({
   selector: 'app-tabela',
   templateUrl: './tabela.component.html',
   styleUrls: ['./tabela.component.css']
 })
+
 export class TabelaComponent implements OnInit, OnChanges {
+  evento: Subscription;
 
   // baixa: Baixa;
   veiculo: VeiculoAtivo[];
 
-  constructor(private CarroService: CarroService, private ModalService: ModalService) { }
+
+
+  constructor(private CarroService: CarroService, private ModalService: ModalService, private comunicacaoService: ComunicacaoService) { }
   // constructor(private datePipe: DatePipe) {}
+
+
 
   ngOnInit(): void {
 
@@ -30,6 +37,10 @@ export class TabelaComponent implements OnInit, OnChanges {
       this.veiculo = data;
     }
     );
+
+    this.evento = this.comunicacaoService.getAtualiza().subscribe((teste: any) => {
+      teste = this.onAtualiza();
+    });
 
     console.log('init');
 
@@ -55,13 +66,18 @@ export class TabelaComponent implements OnInit, OnChanges {
 
   }
 
+
+
   ngOnChanges(change: SimpleChanges): void {
 
     console.log('Thiago');
 
   }
 
-  onAtualiza(): void{
+  public onAtualiza(): void{
+
+    this.comunicacaoService.getAtualiza();
+
     this.CarroService.getCarrosAtivos().subscribe((data: VeiculoAtivo[]) => {
       console.log(data);
       this.veiculo = data;

@@ -1,3 +1,4 @@
+import { TabelaComponent } from './tabela/tabela.component';
 import { SaidaComponent } from './tabela/saida/saida.component';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { VeiculoAtivo } from './Models/VeiculoAtivo.model';
@@ -49,6 +50,8 @@ export class CarroService {
     const url = this.urlVeiculo.concat(veiculo.placa);
     return this.http.post<string>(url, veiculo);
   }
+
+
 
   ////
 

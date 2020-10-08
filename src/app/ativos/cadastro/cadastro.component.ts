@@ -1,3 +1,4 @@
+import { ComunicacaoService } from './../comunicacao.service';
 import { Veiculo } from './../Models/Veiculo.model';
 import { VerificaPlaca } from '../Models/VerificaPlaca.model';
 import { VeiculoAtivo } from '../Models/VeiculoAtivo.model';
@@ -14,6 +15,7 @@ import {
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { timer } from 'rxjs';
 import { waitForAsync } from '@angular/core/testing';
+import { TabelaComponent } from '../tabela/tabela.component';
 
 @Component({
   selector: 'app-cadastro',
@@ -27,6 +29,8 @@ export class CadastroComponent implements OnInit, OnChanges {
   // novoVeiculo: Veiculo = {};
 
   jaCadastrado = false;
+  // tabela: TabelaComponent;
+
 
   // vPlaca;
   // modelo: string;
@@ -35,7 +39,7 @@ export class CadastroComponent implements OnInit, OnChanges {
 
   // emitirCarros = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private CarroService: CarroService) {}
+  constructor(private fb: FormBuilder, private CarroService: CarroService, private comunicacaoService: ComunicacaoService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -75,6 +79,14 @@ export class CadastroComponent implements OnInit, OnChanges {
       // teste: ''
     });
 
+    alert('Carro adicionado');
+    this.comunicacaoService.sendAtualiza();
+
+
+
+
+    // this.tabela.onAtualiza();
+
     // else {
 
     //   console.log(this.novoVeiculo);
@@ -100,7 +112,7 @@ export class CadastroComponent implements OnInit, OnChanges {
     //   });
 
     // }
-    alert('Carro adicionado.');
+    // alert('Carro adicionado.');
     // window.location.reload();
 
   }

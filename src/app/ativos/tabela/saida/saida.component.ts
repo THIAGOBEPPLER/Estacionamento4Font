@@ -3,6 +3,8 @@ import { Veiculo } from './../../Models/Veiculo.model';
 import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
 import { Component, Input, ModuleWithProviders, OnInit } from '@angular/core';
 import { observable } from 'rxjs';
+import { ComunicacaoService } from './../../comunicacao.service';
+
 
 
 @Component({
@@ -24,7 +26,7 @@ export class SaidaComponent implements OnInit {
   //   };
   // }
 
-  constructor(public bsModalRef: BsModalRef ) { }
+  constructor(public bsModalRef: BsModalRef, private comunicacaoService: ComunicacaoService ) { }
 
 
 
@@ -35,6 +37,7 @@ export class SaidaComponent implements OnInit {
   onImprimir(): void{
     this.bsModalRef.hide();
     // window.location.reload();
+    this.comunicacaoService.sendAtualiza();
   }
 
 }
